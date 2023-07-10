@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Application</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TodoV2.Domain\TodoV2.Domain.csproj" />
+      <ProjectReference Include="..\TodoV2.Infrastructure\TodoV2.Infrastructure.csproj" />
+      <ProjectReference Include="..\TodoV2.Utility\TodoV2.Utility.csproj" />
+    </ItemGroup>
+
+</Project>
