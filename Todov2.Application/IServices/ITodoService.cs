@@ -13,6 +13,6 @@ namespace Application.IServices
         Task<TodoDtoGet> CreateTodoAsync(TodoDtoPost newTodo);
         Task<TodoDtoGet> UpdateTodoAsync(Guid todoGuid, TodoDtoPut newTodo);
         Task<TodoDtoGet> UpdateTodoStatusAsync(Guid todoGuid, StatusDto statusDto);
-        Task DeleteTodo(Guid todoGuid);
+        Task DeleteTodo(Guid todoGuid, bool hardDelete);
     }
 }

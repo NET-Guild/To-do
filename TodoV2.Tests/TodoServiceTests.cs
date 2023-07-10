@@ -122,7 +122,7 @@ namespace TodoV2.Tests
             _repositoryMock.Setup(repo => repo.GetTodoByGuidAsync(todoGuid, true)).ReturnsAsync(todoEntity);
 
             // Act
-            await _todoService.DeleteTodo(todoGuid);
+            await _todoService.DeleteTodo(todoGuid, true);
 
             // Assert
             _repositoryMock.Verify(repo => repo.DeleteTodo(todoEntity), Times.Once);

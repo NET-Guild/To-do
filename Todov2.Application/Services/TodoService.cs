@@ -70,10 +70,17 @@ namespace Application.Services
             return _mapper.Map<TodoDtoGet>(await _repository.UpdateTodoAsync(todoEntity));
         }
 
-        public async Task DeleteTodo(Guid todoGuid)
+        public async Task DeleteTodo(Guid todoGuid, bool hardDelete)
         {
-            var todoEntity = await GetTodoEntity(todoGuid);
-            await _repository.DeleteTodo(todoEntity);
+            var todoEntity = await GetTodoEntity(todoGuid, false);
+            if (hardDelete)
+            {
+                await _repository.DeleteTodo(todoEntity);
+            }
+            else
+            {
+                await _repository.SoftDeleteTodo(todoEntity);
+            }
         }
 
         private async Task<Todo> GetTodoEntity(Guid todoGuid, bool asNoTracking = true)

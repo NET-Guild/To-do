@@ -13,5 +13,6 @@ namespace TodoV2.Infrastructure.IRepository
         Task<Todo> CreateTodoAsync(Todo newTodo);
         Task<Todo> UpdateTodoAsync(Todo todo);
         Task DeleteTodo(Todo todo);
+        Task SoftDeleteTodo(Todo todo);
     }
 }

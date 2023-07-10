@@ -25,7 +25,8 @@ namespace Todov2.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TodoDtoGet>>> GetTodos()
         {
-            return Ok(await _service.GetTodosAsync());
+            var result = await _service.GetTodosAsync();
+            return Ok(result);
         }
 
         /// <summary>
@@ -81,11 +82,12 @@ namespace Todov2.Api.Controllers
         /// Soft delete todo
         /// </summary>
         /// <param name="todoGuid">Todo Guid for comparision</param>
+        /// <param name="HardDelete">To force database delete</param>
         /// <returns></returns>
         [HttpDelete("{todoGuid:Guid}")]
-        public ActionResult DeleteTodo([FromRoute] Guid todoGuid)
+        public ActionResult DeleteTodo([FromRoute] Guid todoGuid, [FromQuery] bool HardDelete)
         {
-            _service.DeleteTodo(todoGuid);
+            _service.DeleteTodo(todoGuid, HardDelete);
             return NoContent();
         }
     }

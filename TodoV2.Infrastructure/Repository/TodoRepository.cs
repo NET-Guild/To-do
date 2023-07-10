@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TodoV2.Domain.Entities;
+using TodoV2.Domain.Enums;
 using TodoV2.Infrastructure.DataBase;
 using TodoV2.Infrastructure.IRepository;
 
@@ -13,7 +15,7 @@ namespace TodoV2.Infrastructure.Repository
         public async Task<List<Todo>> GetTodosAsync()
         {
             await using var context = new Context();
-            return await context.Todos.AsNoTracking().ToListAsync();
+            return await context.Todos.Where(t => t.Status != Status.Deleted).AsNoTracking().ToListAsync();
         }
 
         public async Task<Todo> GetTodoByGuidAsync(Guid todoGuid, bool asNoTracking = true)
@@ -49,6 +51,14 @@ namespace TodoV2.Infrastructure.Repository
         {
             await using var context = new Context();
             context.Todos.Remove(todo);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteTodo(Todo todo)
+        {
+            await using var context = new Context();
+            todo.Status = Status.Deleted;
+            context.Update(todo);
             await context.SaveChangesAsync();
         }
     }
